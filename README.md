@@ -1,4 +1,4 @@
-**Hello**, I made this Drug interaction chrcker, so you don't have to. with this simple and basic app, you can check interaction between multiple drugs.
+**Hello**, I made this Drug interaction checker, so you don't have to. with this simple and basic app, you can check interaction between multiple drugs.
 
 If you want to try it out, visit here: https://drug.tiiny.site/
 
