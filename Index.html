@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Interaction Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Drug Interaction Checker</h1>
+        </div>
+        <div class="card-content">
+            <form id="drug-form" class="drug-form">
+                <input type="text" id="drug-input" placeholder="Enter drug name" class="drug-input">
+                <button type="submit" class="btn">Add Drug</button>
+            </form>
+
+            <div class="drug-list-container">
+                <h3 class="subtitle">Added Drugs:</h3>
+                <div class="scroll-area">
+                    <div id="drug-list" class="drug-list"></div>
+                </div>
+            </div>
+
+            <button id="check-interactions" class="btn btn-full" disabled>Check Interactions</button>
+
+            <div class="interactions-container">
+                <h3 class="subtitle">Potential Interactions:</h3>
+                <div class="scroll-area">
+                    <div id="interactions-list" class="interactions-list"></div>
+                </div>
+            </div>
+
+            <div class="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="alert-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <div>
+                    <h4 class="alert-title">Disclaimer</h4>
+                    <p class="alert-description">This tool is for educational purposes only. Always consult with a healthcare professional or pharmacist for medical advice and accurate drug interaction information.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html><div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html><style>body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+.card-header {
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.drug-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.drug-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.btn {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #2563eb;
+}
+
+.btn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-full {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.scroll-area {
+    height: 150px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 10px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.drug-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.drug-item {
+    background-color: #3b82f6;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 9999px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.remove-drug {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 4px;
+    font-size: 16px;
+}
+
+.interaction-item {
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.interaction-item strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.interaction-item .severity {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.mild {
+    background-color: #fef3c7;
+    border: 1px solid #fcd34d;
+    color: #92400e;
+}
+
+.moderate {
+    background-color: #ffedd5;
+    border: 1px solid #fdba74;
+    color: #9a3412;
+}
+
+.severe {
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+}
+
+.alert {
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.alert-icon {
+    flex-shrink: 0;
+    margin-right: 12px;
+    color: #6b7280;
+}
+
+.alert-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.alert-description {
+    font-size: 14px;
+    color: #4b5563;
+    margin: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}</style><script>const mockInteractions = {
+    "aspirin": {
+        "ibuprofen": { message: "May increase the risk of bleeding.", severity: "moderate" },
+        "warfarin": { message: "May increase the risk of bleeding significantly.", severity: "severe" },
+        "clopidogrel": { message: "May increase the risk of bleeding.", severity: "moderate" },
+        "heparin": { message: "May increase the risk of bleeding.", severity: "severe" },
+        "naproxen": { message: "May increase the risk of stomach bleeding.", severity: "moderate" },
+    },
+    "ibuprofen": {
+        "aspirin": { message: "May reduce the cardioprotective effects of aspirin.", severity: "moderate" },
+        "lisinopril": { message: "May decrease the effectiveness of lisinopril.", severity: "moderate" },
+        "naproxen": { message: "May increase the risk of gastrointestinal side effects.", severity: "moderate" },
+        "prednisone": { message: "May increase the risk of gastrointestinal ulceration.", severity: "moderate" },
+        "warfarin": { message: "May increase the risk of bleeding.", severity: "severe" },
+    },
+    "lisinopril": {
+        "ibuprofen": { message: "May decrease the effectiveness of lisinopril.", severity: "moderate" },
+        "spironolactone": { message: "May increase the risk of hyperkalemia.", severity: "severe" },
+        "losartan": { message: "May increase the risk of hyperkalemia.", severity: "severe" },
+        "potassium supplements": { message: "May increase the risk of hyperkalemia.", severity: "severe" },
+        "aliskiren": { message: "May increase the risk of kidney problems and hyperkalemia.", severity: "severe" },
+    },
+    "warfarin": {
+        "aspirin": { message: "May increase the risk of bleeding significantly.", severity: "severe" },
+        "vitamin k": { message: "May decrease the effectiveness of warfarin.", severity: "severe" },
+        "amiodarone": { message: "May increase the anticoagulant effect of warfarin.", severity: "severe" },
+        "ciprofloxacin": { message: "May increase the anticoagulant effect of warfarin.", severity: "severe" },
+        "fluconazole": { message: "May increase the anticoagulant effect of warfarin.", severity: "severe" },
+    },
+    "metformin": {
+        "furosemide": { message: "May increase the risk of lactic acidosis.", severity: "moderate" },
+        "contrast media": { message: "May increase the risk of lactic acidosis.", severity: "severe" },
+        "alcohol": { message: "May increase the risk of lactic acidosis.", severity: "severe" },
+        "cimetidine": { message: "May increase metformin levels in the blood.", severity: "moderate" },
+    },
+    "simvastatin": {
+        "grapefruit juice": { message: "May increase the risk of muscle pain and damage.", severity: "moderate" },
+        "clarithromycin": { message: "May increase the risk of muscle pain and damage.", severity: "severe" },
+        "itraconazole": { message: "May increase the risk of muscle pain and damage.", severity: "severe" },
+        "cyclosporine": { message: "May increase the risk of muscle pain and damage.", severity: "severe" },
+    },
+    "levothyroxine": {
+        "calcium supplements": { message: "May reduce the absorption of levothyroxine.", severity: "moderate" },
+        "iron supplements": { message: "May reduce the absorption of levothyroxine.", severity: "moderate" },
+        "proton pump inhibitors": { message: "May reduce the absorption of levothyroxine.", severity: "moderate" },
+        "soy products": { message: "May reduce the absorption of levothyroxine.", severity: "mild" },
+    },
+    "amiodarone": {
+        "warfarin": { message: "May increase the anticoagulant effect of warfarin.", severity: "severe" },
+        "digoxin": { message: "May increase digoxin levels and risk of toxicity.", severity: "severe" },
+        "simvastatin": { message: "May increase the risk of muscle pain and damage.", severity: "severe" },
+        "levofloxacin": { message: "May increase the risk of irregular heartbeat.", severity: "severe" },
+    },
+    "omeprazole": {
+        "clopidogrel": { message: "May reduce the effectiveness of clopidogrel.", severity: "moderate" },
+        "iron supplements": { message: "May reduce iron absorption.", severity: "mild" },
+        "vitamin B12": { message: "May reduce vitamin B12 absorption with long-term use.", severity: "mild" },
+        "methotrexate": { message: "May increase methotrexate levels in the blood.", severity: "moderate" },
+    },
+    "fluoxetine": {
+        "tramadol": { message: "May increase the risk of serotonin syndrome.", severity: "severe" },
+        "monoamine oxidase inhibitors": { message: "May cause serotonin syndrome.", severity: "severe" },
+        "warfarin": { message: "May increase the risk of bleeding.", severity: "moderate" },
+        "aspirin": { message: "May increase the risk of bleeding.", severity: "moderate" },
+    },
+};
+
+const drugForm = document.getElementById('drug-form');
+const drugInput = document.getElementById('drug-input');
+const drugList = document.getElementById('drug-list');
+const checkInteractionsBtn = document.getElementById('check-interactions');
+const interactionsList = document.getElementById('interactions-list');
+
+let drugs = [];
+
+drugForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    addDrug();
+});
+
+function addDrug() {
+    const drug = drugInput.value.toLowerCase().trim();
+    if (drug && !drugs.includes(drug)) {
+        drugs.push(drug);
+        updateDrugList();
+        drugInput.value = '';
+    }
+    updateCheckInteractionsButton();
+}
+
+function removeDrug(drug) {
+    drugs = drugs.filter(d => d !== drug);
+    updateDrugList();
+    updateCheckInteractionsButton();
+}
+
+function updateDrugList() {
+    drugList.innerHTML = '';
+    drugs.forEach(drug => {
+        const drugItem = document.createElement('span');
+        drugItem.className = 'drug-item';
+        drugItem.textContent = drug;
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-drug';
+        removeBtn.textContent = '×';
+        removeBtn.setAttribute('aria-label', `Remove ${drug}`);
+        removeBtn.onclick = () => removeDrug(drug);
+        
+        drugItem.appendChild(removeBtn);
+        drugList.appendChild(drugItem);
+    });
+}
+
+function updateCheckInteractionsButton() {
+    checkInteractionsBtn.disabled = drugs.length < 2;
+}
+
+checkInteractionsBtn.addEventListener('click', checkInteractions);
+
+function checkInteractions() {
+    const interactions = [];
+    for (let i = 0; i < drugs.length; i++) {
+        for (let j = i + 1; j < drugs.length; j++) {
+            const drug1 = drugs[i];
+            const drug2 = drugs[j];
+            if (mockInteractions[drug1]?.[drug2]) {
+                interactions.push({
+                    drugs: `${capitalize(drug1)} + ${capitalize(drug2)}`,
+                    message: mockInteractions[drug1][drug2].message,
+                    severity: mockInteractions[drug1][drug2].severity,
+                });
+            } else if (mockInteractions[drug2]?.[drug1]) {
+                interactions.push({
+                    drugs:  `${capitalize(drug2)} + ${capitalize(drug1)}`,
+                    message: mockInteractions[drug2][drug1].message,
+                    severity: mockInteractions[drug2][drug1].severity,
+                });
+            }
+        }
+    }
+    displayInteractions(interactions);
+}
+
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function displayInteractions(interactions) {
+    interactionsList.innerHTML = '';
+    if (interactions.length > 0) {
+        interactions.forEach(interaction => {
+            const interactionItem = document.createElement('div');
+            interactionItem.className = `interaction-item ${interaction.severity} fade-in`;
+            interactionItem.innerHTML = `
+                <strong>${interaction.drugs}:</strong> ${interaction.message}
+                <span class="severity">Severity: ${capitalize(interaction.severity)}</span>
+            `;
+            interactionsList.appendChild(interactionItem);
+        });
+    } else {
+        const noInteractions = document.createElement('p');
+        noInteractions.textContent = 'No interactions found or not yet checked.';
+        noInteractions.className = 'fade-in';
+        interactionsList.appendChild(noInteractions);
+    }
+}
+
+updateCheckInteractionsButton();</script>
